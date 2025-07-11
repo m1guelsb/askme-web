@@ -1,35 +1,22 @@
-import { useQuery } from '@tanstack/react-query';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import type { Room } from '@/types';
+import { CreateRoomForm } from '@/components/create-room-form';
+import { RoomList } from '@/components/room-list';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export function CreateRoom() {
-  const { data: roomsList, isLoading } = useQuery({
-    queryKey: ['get-rooms'],
-    queryFn: async () => {
-      const res = await fetch('http://localhost:3001/rooms');
-      return (await res.json()) as Room[];
-    },
-  });
-
   return (
-    <div>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <div>
-          <h2>Existing Rooms</h2>
-          <ul className="flex flex-col gap-1">
-            {roomsList?.map(({ id, name }) => (
-              <li key={id}>
-                <Link to={`/room/${id}`}>
-                  <Button variant="link">{name}</Button>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+    <div className="h-screen mx-auto p-4 max-w-4xl flex-1 grid gap-8 grid-cols-2 items-start">
+      <CreateRoomForm />
+
+      <div className="overflow-auto h-full">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-xl">Recent Rooms</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3 truncate">
+            <RoomList />
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
