@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/nursery/noUnknownAtRule:  no */
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -214,5 +215,10 @@
   }
   body {
     @apply bg-background text-foreground;
+
+    @apply h-screen w-screen overflow-hidden;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-ring) transparent;
   }
 }

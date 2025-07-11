@@ -1,7 +1,6 @@
 export type Room = {
   id: string;
   name: string;
-  description: string;
+  questionCount: number;
   createdAt: string;
-  updatedAt: string;
 };
