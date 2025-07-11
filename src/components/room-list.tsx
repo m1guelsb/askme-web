@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { formatDate } from '@/lib/utils';
 import { Badge } from './ui/badge';
+import { Skeleton } from './ui/skeleton';
 import type { Room } from '@/types';
 
 export function RoomList() {
@@ -16,13 +17,10 @@ export function RoomList() {
 
   return (
     <>
-      {isLoading &&
-        Array.from({ length: 10 }).map(() => (
-          <div
-            key={Math.random()}
-            className="h-20 rounded-lg bg-muted animate-pulse"
-          />
-        ))}
+      <Skeleton
+        isLoading={isLoading}
+        element={<div className="h-20 rounded-lg bg-muted animate-pulse" />}
+      />
 
       {roomsList?.map(({ id, name, questionCount, createdAt }) => {
         return (
