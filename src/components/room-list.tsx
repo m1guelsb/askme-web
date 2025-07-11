@@ -8,7 +8,7 @@ import type { Room } from '@/types';
 
 export function RoomList() {
   const { data: roomsList, isLoading } = useQuery({
-    queryKey: ['get-rooms'],
+    queryKey: ['rooms'],
     queryFn: async () => {
       const res = await fetch('http://localhost:3001/rooms');
       return (await res.json()) as Room[];
