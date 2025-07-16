@@ -4,3 +4,10 @@ export type Room = {
   questionCount: number;
   createdAt: string;
 };
+
+export type Question = {
+  id: string;
+  question: string;
+  answer?: string | null;
+  createdA0t: string;
+};
