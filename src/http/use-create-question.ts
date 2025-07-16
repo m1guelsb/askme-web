@@ -1,7 +1,7 @@
 import type { Question } from '@/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-type GetRoomQuestionsResponse = {
+export type GetRoomQuestionsResponse = {
   isGeneratingAnswer?: boolean;
 } & Question[];
 
@@ -27,7 +27,6 @@ export function useCreateQuestion(roomId: string) {
       return result;
     },
 
-    // Executa no momento que for feita a chamada p/ API
     onMutate({ question }) {
       const questions = queryClient.getQueryData<GetRoomQuestionsResponse>([
         'get-questions',
@@ -45,7 +44,7 @@ export function useCreateQuestion(roomId: string) {
       };
 
       queryClient.setQueryData<GetRoomQuestionsResponse>(
-        ['get-questions', roomId],
+        ['questions', roomId],
         [newQuestion, ...questionsArray]
       );
 
@@ -54,7 +53,7 @@ export function useCreateQuestion(roomId: string) {
 
     onSuccess(data, _variables, context) {
       queryClient.setQueryData<GetRoomQuestionsResponse>(
-        ['get-questions', roomId],
+        ['questions', roomId],
         (questions) => {
           if (!questions) {
             return questions;
@@ -83,14 +82,10 @@ export function useCreateQuestion(roomId: string) {
     onError(_error, _variables, context) {
       if (context?.questions) {
         queryClient.setQueryData<GetRoomQuestionsResponse>(
-          ['get-questions', roomId],
+          ['questions', roomId],
           context.questions
         );
       }
     },
-
-    // onSuccess: () => {
-    //   queryClient.invalidateQueries({ queryKey: ['get-questions', roomId] })
-    // },
   });
 }
