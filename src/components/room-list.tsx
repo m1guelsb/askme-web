@@ -25,7 +25,7 @@ export function RoomList() {
       {roomsList?.map(({ id, name, questionCount, createdAt }) => {
         return (
           <Link
-            to={`/rooms/${id}`}
+            to={`/room/${id}`}
             key={id}
             className="flex items-center rounded-lg justify-between p-3 hover:bg-accent border"
           >
